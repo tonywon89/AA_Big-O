@@ -41,7 +41,6 @@ def okay_two_sum?(array, target)
         return true if !found_index.nil?
       end
     end
-
   end
 
   false
