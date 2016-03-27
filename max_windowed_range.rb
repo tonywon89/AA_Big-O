@@ -1,13 +1,42 @@
+require_relative 'min_max_stack_queue'
+
 def windowed_max_range(array, window_size)
 
   new_array = array
   max_range = 0
-  while new_array.length >= window_size
-    window = new_array.take(window_size)
-    range = window.max - window.min
-    max_range = range if max_range < range
-    new_array = new_array.drop(1)
+  queue = MinMaxStackQueue.new
+  index = 0
+
+  window_size.times do |i|
+    queue.enqueue(array[i])
+    index += 1
   end
+
+  range = queue.max - queue.min
+  max_range = range if max_range < range
+
+  until index > array.length
+
+
+    queue.dequeue
+    queue.enqueue(array[index])
+
+    range = queue.max - queue.min
+    max_range = range if max_range < range
+    
+    index += 1
+  end
+
+
+
+
+
+  window.each { |num| queue.enqueue }
+
+
+
+
+
   max_range
 end
 
